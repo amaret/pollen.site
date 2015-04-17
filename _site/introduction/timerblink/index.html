@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pollen, a new programming language for tiny computers by Amaret, Inc.">
+    <meta name="keywords" content="programming, programming languages, languages, hardware, microcontroller, embedded system, embedded systems, embedded systems programming, embedded development, microcontroller software, microcontroller software development">
+    <meta name="author" content="Amaret, Inc.">
+
+    <title>Welcome to Pollen</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Prism CSS -->
+    <link href="../../static/css/prism.css" rel="stylesheet" />
+
+    <!-- Amaret core CSS -->
+    <link href="../../static/css/pollen.css" rel="stylesheet" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="static/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="icon" href="static/ico/favicon.ico">
+
+    <!-- analytics --> 
+    <script></script>
+  </head>
+
+  <body class="doc-page language-javascript" data-spy="scroll" data-target="#doc-sidenav">
+
+    <div class="navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost/~amichi/pollen/index.html">Pollen</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li id="introduction"><a href="http://localhost/~amichi/pollen/introduction/index.html">Introduction</a></li>
+        <li><a href="http://localhost/~amichi/pollen/guide/index.html">Language Guide</a></li>
+        <li><a href="http://localhost/~amichi/pollen/reference/index.html">Reference</a></li>
+        <li><a href="http://localhost/~amichi/pollen/compiler/index.html">Compiler</a></li>
+        <li><a href="">Support</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="">About</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    <div class="doc-header">
+      <div class="container">
+        <h1>Welcome to Pollen</h1>
+        <p>Pollen is a new programming language designed to enable rapid, productive, and robust software development for embedded systems.</p>
+      </div>
+    </div>
+
+    <div class="container doc-container" style="padding-bottom: 60px">
+      <div class="row" id="content">
+        <div class="col-md-3">
+  <nav id="doc-sidenav" class="doc-sidebar hidden-print hidden-xs hidden-sm" role="navigation">
+    <h4>Overview</h4>
+<ul class="nav doc-sidenav affix-top" data-spy="affix" data-offset-top="10" data-offset-bottom="200" style="margin-top: 0px">
+  <li><a href="http://localhost/~amichi/pollen/introduction/about">What is Pollen?</a></li>
+  <li><a href="http://localhost/~amichi/pollen/introduction/timerblink">Try it!</a></li>
+</ul>
+
+  </nav>
+</div>
+
+<div class="col-md-9" role="main">
+
+  <h2 id="tryit" class="page-header">Try it!</h2>
+
+<p>Pollen code is built in the cloud using a command-line client and can build
+binaries for various microcontroller targets.</p>
+
+<p>Here is a small Pollen program that uses the timer implementation and toggles an
+Led when the timer ticks. This program also uses the event and led modules in
+the cloud. Copy this file and paste it into a file named <code>TimerBlink.p</code> to try
+running the Pollen cloud compiler.</p>
+
+<pre><code>import pollen.environment as Env
+from Env import Led
+
+from pollen.time import Timer
+
+module TimerBlink {
+
+  host new Timer t1(tick)
+
+  tick() {
+    Led.toggle()
+  }
+
+  pollen.run() {
+    t1.start(500, true)
+    Env.Newsroom.run()
+  }
+}
+</code></pre>
+
+<p>The Pollen translator command line shown below will translate this file for the arduino. </p>
+
+<p>Here are descriptions of the options used:</p>
+
+<ul>
+  <li><code>-e</code> is the option to specify an environment. </li>
+  <li><code>-b</code> is the option for bundles. In this case cloud bundles are used which is
+signified by <code>@</code> before the bundle name.</li>
+  <li><code>-t</code> is the option for the toolchain. </li>
+  <li><code>--mcu</code> is the option for target microcontroller. </li>
+  <li><code>-o</code> option specifies the path to the output file. </li>
+</ul>
+
+<p>The C compiler output file will have the name TimerBlink-prog.out (or <top level="" module="" name="">-prog.out in the general case). Note that other tools may run on that file (e.g. objcopy) so what the final executeable name will be depends on the toolchain used. </top></p>
+
+<pre><code>pollenc                            \
+    -o &lt;output path&gt;               \
+    -t avr-gcc                     \
+    --mcu atmega328p               \
+    -b @pollen-core                \
+    -b @atmel                      \
+    -b @environments               \
+    -e @environments/arduino/Uno   \
+    TimerBlink.p
+</code></pre>
+
+<p>The option <code>-h</code> will list the options to the cloud compiler.</p>
+
+<p>This invocation is for the <code>atmega328p</code> target and uses the <code>avr-gcc</code> toolchain. You
+can translate this for the your local machine (the <code>localhost-gcc</code> toolchain) and run it there to verify the
+execution flow. Note that a <code>localhost-gcc</code> toolchain will translate the Pollen
+application but not link it whereas <code>avr-gcc</code> toolchain will translate and link the
+application, producing an executable that is downloaded to you. </p>
+
+
+</div>
+
+
+      </div>
+    </div>
+
+        <footer class="" role="contentinfo">
+      <div class="container section">
+
+          <div class="container">
+            <a data-scroll href="http://amaret.com"><img class="brand-logo" src="../../static/img/logo_white_medium.png" /></a>
+            <h3 style="margin-top: 0">Integrated Solutions for Product Creation</h3>
+            <p>
+              Copyright &copy; 2015 Amaret Inc. All rights reserved. <!-- <a href="">Terms of Use</a> &nbsp;|&nbsp;  <a href="">Privacy Policy</a> -->
+            </p>
+          </div>
+
+      </div>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/pollen.js"></script>
+    <script src="../../static/js/prism.js"></script>
+
+
+  </body>
+
+</html>

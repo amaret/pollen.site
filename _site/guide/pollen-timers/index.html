@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pollen, a new programming language for tiny computers by Amaret, Inc.">
+    <meta name="keywords" content="programming, programming languages, languages, hardware, microcontroller, embedded system, embedded systems, embedded systems programming, embedded development, microcontroller software, microcontroller software development">
+    <meta name="author" content="Amaret, Inc.">
+
+    <title>Programming Pollen</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Prism CSS -->
+    <link href="../../static/css/prism.css" rel="stylesheet" />
+
+    <!-- Amaret core CSS -->
+    <link href="../../static/css/pollen.css" rel="stylesheet" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="static/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="icon" href="static/ico/favicon.ico">
+
+    <!-- analytics --> 
+    <script></script>
+  </head>
+
+  <body class="doc-page language-javascript" data-spy="scroll" data-target="#doc-sidenav">
+
+    <div class="navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost/~amichi/pollen/index.html">Pollen</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li id="introduction"><a href="http://localhost/~amichi/pollen/introduction/index.html">Introduction</a></li>
+        <li><a href="http://localhost/~amichi/pollen/guide/index.html">Language Guide</a></li>
+        <li><a href="http://localhost/~amichi/pollen/reference/index.html">Reference</a></li>
+        <li><a href="http://localhost/~amichi/pollen/compiler/index.html">Compiler</a></li>
+        <li><a href="">Support</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="">About</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    <div class="doc-header">
+      <div class="container">
+        <h1>Programming Pollen</h1>
+        <p>A practical guide to the Pollen language features and how to make use of them effectively.</p>
+      </div>
+    </div>
+
+    <div class="container doc-container" style="padding-bottom: 60px">
+      <div class="row" id="content">
+        <div class="col-md-3">
+  <nav id="doc-sidenav" class="doc-sidebar hidden-print hidden-xs hidden-sm" role="navigation">
+    <h4>Language Guide</h4>
+<ul class="nav doc-sidenav affix-top" data-spy="affix" data-offset-top="10" data-offset-bottom="200" style="margin-top: 0px">
+  <li><a href="http://localhost/~amichi/pollen/guide">The Basics</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/operators">Basic Operators</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/strings">Strings and Characters</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/arrays">Arrays</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/control-flow">Control Flow</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/function-references">Function References</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/host-initialization">Host Initialization</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/modules">Modules</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/protocols">Protocols</a></li>  
+  <li><a href="http://localhost/~amichi/pollen/guide/compositions">Compositions</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/classes">Classes</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/enumerations">Enumerations</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/meta">Meta Types</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/print-keyword">Print Keyword</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/intrinsics">Intrinsics</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/c-code">C Code Injection</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/packages-bundles">Packages &amp; Bundles</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/pollen-corelib">Core Library</a>
+    <ul>
+        <li><a href="http://localhost/~amichi/pollen/guide/pollen-events">Events</a></li>
+        <li><a href="http://localhost/~amichi/pollen/guide/pollen-timers">Timers</a></li>
+    </ul>
+  </li>
+  
+</ul>
+
+  </nav>
+</div>
+
+<div class="col-md-9" role="main">
+
+  
+<h2 id="how-to-use-timers">How to Use Timers</h2>
+
+<p>There are two classes for timers in package <code>pollen.time</code>. The <code>TimerManager</code> class handles administration and registration of timers. It is usually not necessary for a timer client to access this class. Timer clients can use the timer subsystem via the <code>Timer</code> class. </p>
+
+<p>Here is a simple example that allocates a <code>Timer</code> with a handler and starts it. When the timer ticks, the code toggles an led.  </p>
+
+<pre><code>import pollen.environment as Env
+from Env import Led
+
+from pollen.time import Timer
+
+module TimerBlink {
+
+  host new Timer t1(tick)    // Declare and allocate a Timer with a tick() handler
+
+  tick() {
+    Led.toggle()
+  }
+
+  pollen.run() {
+    t1.start(500, true)      // Start the timer
+    Env.Newsroom.run()
+  }
+}
+</code></pre>
+
+<p>The <code>Timer</code> class is located in the <code>pollen-core</code> bundle and you can download it. It is very simple to use. </p>
+
+<ol>
+  <li>
+    <p>Define a handler for the timer. This handler will define what you want to happen when the timer ticks a specified number of times. In the code above the handler is <code>tick()</code>.</p>
+  </li>
+  <li>
+    <p>Declare and initialize a host <code>Timer</code>. In this example the host timer is called <code>t1</code> and it is initialized with <code>tick()</code> as its handler. </p>
+  </li>
+  <li>
+    <p>Start the timer by calling <code>start()</code>. The first parameter specifies the timer interval in milliseconds and the second is a boolean which controls whether this interval will repeat. In this code the start method is called in <code>pollen.run()</code> which is the main entry function (like <code>main</code> in C). </p>
+  </li>
+</ol>
+
+<p>To stop the timer <code>stop()</code> can be called.</p>
+
+<p>To translate this code an environment must be chosen. You can do this on the command line. There are environments that are available in the <code>pollen-core</code> cloud bundle or you can define your own. The <code>-e</code> option below selects the Arduino Uno environment. All the bundles specified below are cloud bundles as indicated by the <code>@</code> preceding the bundle name but you can define your own locally. (Or you can download and modify these). The <code>-t</code> option specifies the tool chain. This command line will invoke the avr-gcc compiler on the code.  </p>
+
+<pre><code>pollenc    		                        \
+    -o &lt;output path&gt;		            \
+    -t avr-gcc --mcu atmega328p 		\
+    -b @pollen-core 		            \
+    -b @atmel 		                    \
+    -b @environments 		            \
+    -e @environments/arduino/Uno 		\
+    TimerBlink.p
+</code></pre>
+
+  
+  
+</div>
+
+
+      </div>
+    </div>
+
+        <footer class="" role="contentinfo">
+      <div class="container section">
+
+          <div class="container">
+            <a data-scroll href="http://amaret.com"><img class="brand-logo" src="../../static/img/logo_white_medium.png" /></a>
+            <h3 style="margin-top: 0">Integrated Solutions for Product Creation</h3>
+            <p>
+              Copyright &copy; 2015 Amaret Inc. All rights reserved. <!-- <a href="">Terms of Use</a> &nbsp;|&nbsp;  <a href="">Privacy Policy</a> -->
+            </p>
+          </div>
+
+      </div>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/pollen.js"></script>
+    <script src="../../static/js/prism.js"></script>
+
+
+  </body>
+
+</html>

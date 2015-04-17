@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% include common/header.html %}
+  </head>
+
+  <body class="doc-page language-javascript" data-spy="scroll" data-target="#doc-sidenav">
+
+    {% include common/top-nav.html %}
+
+    <div class="doc-header">
+      <div class="container">
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.subtitle }}</p>
+      </div>
+    </div>
+
+    <div class="container doc-container" style="padding-bottom: 60px">
+      <div class="row" id="content">
+        {{ content }}
+      </div>
+    </div>
+
+    {% include common/footer.html %}
+
+  </body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pollen, a new programming language for tiny computers by Amaret, Inc.">
+    <meta name="keywords" content="programming, programming languages, languages, hardware, microcontroller, embedded system, embedded systems, embedded systems programming, embedded development, microcontroller software, microcontroller software development">
+    <meta name="author" content="Amaret, Inc.">
+
+    <title>Programming Pollen</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Prism CSS -->
+    <link href="../../static/css/prism.css" rel="stylesheet" />
+
+    <!-- Amaret core CSS -->
+    <link href="../../static/css/pollen.css" rel="stylesheet" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="static/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="icon" href="static/ico/favicon.ico">
+
+    <!-- analytics --> 
+    <script></script>
+  </head>
+
+  <body class="doc-page language-javascript" data-spy="scroll" data-target="#doc-sidenav">
+
+    <div class="navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://localhost/~amichi/pollen/index.html">Pollen</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li id="introduction"><a href="http://localhost/~amichi/pollen/introduction/index.html">Introduction</a></li>
+        <li><a href="http://localhost/~amichi/pollen/guide/index.html">Language Guide</a></li>
+        <li><a href="http://localhost/~amichi/pollen/reference/index.html">Reference</a></li>
+        <li><a href="http://localhost/~amichi/pollen/compiler/index.html">Compiler</a></li>
+        <li><a href="">Support</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="">About</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    <div class="doc-header">
+      <div class="container">
+        <h1>Programming Pollen</h1>
+        <p>A practical guide to the Pollen language features and how to make use of them effectively.</p>
+      </div>
+    </div>
+
+    <div class="container doc-container" style="padding-bottom: 60px">
+      <div class="row" id="content">
+        <div class="col-md-3">
+  <nav id="doc-sidenav" class="doc-sidebar hidden-print hidden-xs hidden-sm" role="navigation">
+    <h4>Language Guide</h4>
+<ul class="nav doc-sidenav affix-top" data-spy="affix" data-offset-top="10" data-offset-bottom="200" style="margin-top: 0px">
+  <li><a href="http://localhost/~amichi/pollen/guide">The Basics</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/operators">Basic Operators</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/strings">Strings and Characters</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/arrays">Arrays</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/control-flow">Control Flow</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/function-references">Function References</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/host-initialization">Host Initialization</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/modules">Modules</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/protocols">Protocols</a></li>  
+  <li><a href="http://localhost/~amichi/pollen/guide/compositions">Compositions</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/classes">Classes</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/enumerations">Enumerations</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/meta">Meta Types</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/print-keyword">Print Keyword</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/intrinsics">Intrinsics</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/c-code">C Code Injection</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/packages-bundles">Packages &amp; Bundles</a></li>
+  <li><a href="http://localhost/~amichi/pollen/guide/pollen-corelib">Core Library</a>
+    <ul>
+        <li><a href="http://localhost/~amichi/pollen/guide/pollen-events">Events</a></li>
+        <li><a href="http://localhost/~amichi/pollen/guide/pollen-timers">Timers</a></li>
+    </ul>
+  </li>
+  
+</ul>
+
+  </nav>
+</div>
+
+<div class="col-md-9" role="main">
+
+  <h1 id="arrays" class="page-header">Compatibility with C</h1>
+
+<p class="lead">Pollen is a compiled language via C. Pollen code is translated to C and as a result Pollen can run on any platform which has a C compiler.</p>
+
+<p>This has significant advantages: viability on all platforms, mature compilers, being able to use C debuggers, being able to link with C libraries, and so on. But in addition Pollen offers a deeper and more flexible integration with C through a feature called <em>code injection</em>.</p>
+
+<h2 class="page-header" id="ref-ccode-inj">
+C Code Injection
+</h2>
+
+<p>A code injection block is initiated by <code>+{</code> and ends with a matching <code>}+</code>. The code between these markers is C code. Code injection blocks can be used to include C header files, functions, declarations, statements, and even expressions in Pollen programs. This flexibility makes it very easy to reuse existing C code in a Pollen program. The simplest example of code injection is simply to include a C header file in the Pollen program: </p>
+
+<pre><code>+{ #include &lt;avr/interrupt.h&gt; }+
+</code></pre>
+
+<p>This degree of support for integration with C makes it easy to access the benefits of Pollen in any context where C is used, which includes virtually all embedded software development shops.</p>
+
+<p>In addition there is sometimes a need to substitute Pollen names into the C scope. That is, Pollen identifiers can be used in code injection blocks (they must be surrounded by back ticks). The example below shows how this works for meta value parameters and also Pollen names.</p>
+
+<pre><code>package atmel.atmega8
+from pollen.hardware import InterruptSource
+from pollen.hardware import InterruptHandler
+
++{ #include &lt;avr/interrupt.h&gt; }+
+
+meta { string name, 
+       string enableRegister, 
+       string enableBit, 
+       string clearRegister, 
+       string clearBit }
+
+module MetaInterrupt implements InterruptSource {
+
+  InterruptHandler.isr() handler 
+
+  +{ 
+    ISR( `name` ) {          //name is a meta parameter. 
+      (`handler`)();          // handler is a local variable. 
+    } 
+  }+
+
+  public host setHandlerOnHost(InterruptHandler.isr h) {
+    handler = h 
+  }
+
+  public enable() {
+    +{`enableRegister`}+ |= (1 &lt;&lt; +{`enableBit`}+) // meta parameters in injected code. 
+  }
+  ...
+}
+</code></pre>
+  
+  
+</div>
+
+
+      </div>
+    </div>
+
+        <footer class="" role="contentinfo">
+      <div class="container section">
+
+          <div class="container">
+            <a data-scroll href="http://amaret.com"><img class="brand-logo" src="../../static/img/logo_white_medium.png" /></a>
+            <h3 style="margin-top: 0">Integrated Solutions for Product Creation</h3>
+            <p>
+              Copyright &copy; 2015 Amaret Inc. All rights reserved. <!-- <a href="">Terms of Use</a> &nbsp;|&nbsp;  <a href="">Privacy Policy</a> -->
+            </p>
+          </div>
+
+      </div>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/pollen.js"></script>
+    <script src="../../static/js/prism.js"></script>
+
+
+  </body>
+
+</html>

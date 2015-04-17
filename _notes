@@ -1,0 +1,129 @@
+TODO:
+---------
+Classes:
+Missing sections:
+*  How to define classes without host initialization.
+*  How new and delete / free work etc
+---------
+Hardware Variability:
+* Use case is composition binding a protocol member
+
+Portability
+* configures for hardware
+* composition exporting names that are used in 
+  modules. 
+* when it is time to move to new hardware
+  just change the composition.
+
+------
+Sections:
+
+Introduction
+  2-3 sentences on each feature (for each section in the guide).
+Guide
+  Try for < 15 lines for code sample. LEAST amount. 
+  Find succinct eg half sentence descriptions.
+  Pollen has elegant domain specfic language features.
+  Balances high level capabilities, low level requirements.
+
+Configuration. 
+  How to communicate the value of configuation capabilities?
+
+Talk about the domain! This is a domain specific language for..
+1 MB Ram - 32 MB. Cpu etc. 
+
+Abstraction 
+configurability
+  links to preset, host features, other configurablity capabilities
+variability
+  product lifecycle: what varies over time. Hardware changes, e.g. 
+  The variation is supported by a set of features, eg. protocol member 
+    decoupling interface from implementation 
+reusabilty
+portability
+modularity
+efficiency
+
+The guide should be a how to but don't need that term, it's redundant.
+
+Pollen is a domain specific language for embedded systems programming. 
+In this domain the specification and configuration of target hardware can 
+vary widely, even drastically. 
+One system may have only 16 KB RAM and 1 timer while another has 32 MB
+and 2 timers. How to write reusable code for both these targets? ;w
+
+Hardware Variability: Across the product life cycle. Changes e.g. hardware changes on the
+board w/ repercussion in software. Can change hardware with limits to software
+change. New components / hardware always coming on the market - write code so 
+hardware can vary over time. Minimize impact of hardware changes. 
+
+Configurabilituy
+Code can configure itself, presets, host time. Eg. ./configure for make builds.
+
+Intrinsics
+application lifecycle
+ready: all the core modules have been initialized so inter dependencies can be
+handled in ready. 
+then run.
+reset could sets the frequency (may not want default), could turn off the watchdog timer
+    
+
+===================
+
+Use this:
+jekyll build -d ~/pollen
+With this _config.yaml:
+url: "http://127.0.0.1:4000"
+baseurl: "/pollen"
+
+===================
+
+Relative links:
+This loads:
+http://127.0.0.1:4000/pollen.website/pollen-site/_site/introduction/
+The _config.yml has:
+url: "http://localhost/~lentil"
+baseurl: "/pollen.website/pollen-site/_site"
+
+But the links on the page don't use the baseurl:
+localhost/~lentil/pollen/introduction
+
+How are those links generated?
+
+the index.html root page has them:
+<li id="introduction"><a
+href="http://localhost/~lentil/pollen/introduction">Introduction</a></li>
+
+when cloned it has ~amichi but is otherwise the same.
+ 
+--
+
+home page at: http://127.0.0.1:4000/index.html
+when 
+url: "http://127.0.0.1:4000/"
+and no baseurl
+and jekyll -build -d ~/pollen 
+
+But the links are relative to pollen.
+home link is: http://127.0.0.1:4000/pollen
+
+This works:
+url: "http://127.0.0.1:4000"
+baseurl: "/pollen"
+WITH jekyll -build -d ~/pollen 
+As the pages have such a baseurl.
+EXCEPT for the home index page, that needs:
+http://127.0.0.1:4000/pollen/index.html
+=> this should work, why not?
+
+This baseurl fudges the local development version for a site
+with the eventual public url, maybe amaret.com/pollen.
+
+===================
+
+
+
+
+
+
+
