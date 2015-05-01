@@ -20,6 +20,8 @@ The initialization scripts are executed by the Pollen translator during the tran
 
 The term host phase refers to the execution of these initialization scripts on the host computer. To make the program more efficient and robust, the host phase can handle complex initialization and allocation that in other programming languages must be done at runtime. Pollen off-loads this work to the host computer via the initialization scripts saving runtime and hardware resources. This is what is meant by the term host initialization.
 
+<!--
+
 ---------------
 
 **MEGAN: CAN YOU INTEGRATE THIS NEXT PARAGRAPH INTO THIS SECTION SAVING ANY REDUNDANCY**
@@ -29,6 +31,7 @@ In practice, host initialization is about levearging all the information that is
 ---------------
 
 **I'm not so happy with the way this paragraph reads. Its quite complex and needs to be more straightfoward. Its bit cryptic and the paragraph above makes some of this redundant**
+-->
 
 Embedded applications often have a high degree of similarity in their code
 functionality - such as the basic work of controlling the hardware - within a
@@ -36,6 +39,7 @@ context of high variability and complexity in initial configuration. Pollen
 facilitates code reuse by  supporting sophisticated configuration capabilities
 during the host phase that allows the same code to adapt itself to operate under a
 variety of  configurations.
+
 Note that host initialization can also make code easier to reuse. Configuration and initialization
 can be handled via host initialization in ways that minimize source code changes
 for different applications and contexts. We will see examples of this below.

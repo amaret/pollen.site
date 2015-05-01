@@ -218,7 +218,7 @@ h6:before {
     padding-left: 20px;
   }
 
-  .doc-sidebar.affix {
+/*  .doc-sidebar.affix {
     position: fixed;
     width: 260px;
   }  
@@ -227,7 +227,7 @@ h6:before {
     margin-top: 0;
     margin-bottom: 0;
   }
-
+*/
   .doc-sidenav {
     margin-top: 20px;
     margin-bottom: 20px;

@@ -6,7 +6,8 @@ url: "http://localhost/~amichi"
 
 #Megan development config:
 #url: "http://127.0.0.1:4000"
-baseurl: "/pollen"
+#baseurl: "/pollen"
+baseurl: "http://localhost/~amichi/pollen"
 
 # Exclude directories from the conversion
 include: ['./static']
