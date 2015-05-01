@@ -29,14 +29,14 @@ Pollen addresses these problems.  Its development has
 been guided by the values of clarity, simplicity, and sound design
 principles. It is meant be efficient for the developer, the lifecycle of product development and for the hardware itself. As a result Pollen provides a new experience for embedded systems programming. 
 
+<div class="alert alert-info" role="alert">
+  <span class="glyphicon glyphicon-leaf"></span> 
+  There is <a href="https://www.cs.ucsb.edu/research/tech-reports/2010-24" target="_" style="color: #31708f;">academic research</a> behind Pollen.
+</div>
+
 Pollen was designed for hardware applications that are reactive, asynchronous, and sensitive to consumption of time, space and energy resources. While Pollen will run on any hardware for which a C compiler exists, it was created for microcontrollers that tend to have bytes or kilobytes of RAM, just a few megahertz of processing power and typically cannot run operating systems such as Linux, Android or iOS. 
 
 Below we connect the fundamental design concepts of Pollen to specific Pollen features.
-
-<div class="alert alert-info" role="alert">
-  <span class="glyphicon glyphicon-leaf"></span> 
-  There is academic research behind Pollen. You can find it <a href="https://www.cs.ucsb.edu/research/tech-reports/2010-24" target="_" style="color: #31708f;">here</a>.
-</div>
 
 <div style="padding: 20px 20px;
 ">
